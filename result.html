@@ -1,0 +1,45 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporal Origin Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tombolo Temporal Origins</h1>
+            <p>Your Temporal Origin Results</p>
+        </header>
+        
+        <div class="result-container">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename=result.image_path) }}" alt="Analyzed image" class="result-image">
+            </div>
+            
+            <div class="temporal-data">
+                <div class="timestamp">
+                    {% if result.date %}
+                    <h2>Date: <span>{{ result.date }}</span></h2>
+                    {% endif %}
+                    
+                    {% if result.location %}
+                    <h2>Location: <span>{{ result.location }}</span></h2>
+                    {% endif %}
+                </div>
+                
+                <div class="explanation">
+                    <h3>Explanation:</h3>
+                    <p>{{ result.explanation }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <a href="{{ url_for('index') }}" class="back-button">Analyze Another</a>
+        </div>
+    </div>
+</body>
+</html>

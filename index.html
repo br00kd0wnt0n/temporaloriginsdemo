@@ -1,0 +1,55 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tombolo Temporal Origins</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tombolo Temporal Origins</h1>
+            <p>Upload an image to discover its temporal origin</p>
+        </header>
+        
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+        
+        <div class="upload-section">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="file-input">
+                    <label for="file">Choose a clothing image</label>
+                    <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png" required>
+                </div>
+                <div id="preview-container" class="preview-container"></div>
+                <button type="submit" class="submit-button">Analyze Temporal Origin</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Simple preview functionality
+        document.getElementById('file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewContainer = document.getElementById('preview-container');
+                previewContainer.innerHTML = '';
+                
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'preview-image';
+                previewContainer.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
